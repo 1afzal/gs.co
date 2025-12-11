@@ -1,0 +1,226 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Brand Colors - Deep Industrial Blue + Orange Accent */
+    --primary: 209 83% 30%;
+    --primary-foreground: 0 0% 100%;
+    
+    --secondary: 210 20% 96%;
+    --secondary-foreground: 209 83% 30%;
+    
+    --accent: 29 87% 62%;
+    --accent-foreground: 0 0% 100%;
+    
+    --background: 0 0% 100%;
+    --foreground: 210 25% 15%;
+    
+    --card: 0 0% 100%;
+    --card-foreground: 210 25% 15%;
+    
+    --popover: 0 0% 100%;
+    --popover-foreground: 210 25% 15%;
+    
+    --muted: 210 20% 96%;
+    --muted-foreground: 210 15% 45%;
+    
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --border: 210 20% 90%;
+    --input: 210 20% 90%;
+    --ring: 209 83% 30%;
+    
+    --radius: 0.5rem;
+    
+    /* Custom Industrial Theme */
+    --navy: 209 83% 30%;
+    --navy-dark: 209 85% 22%;
+    --navy-light: 209 60% 45%;
+    --orange: 29 87% 62%;
+    --orange-dark: 29 87% 52%;
+    --orange-light: 29 87% 72%;
+    --steel: 210 15% 60%;
+    --steel-light: 210 20% 85%;
+    --steel-dark: 210 15% 35%;
+    
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(209 83% 30% / 0.95), hsl(209 85% 22% / 0.9));
+    --gradient-cta: linear-gradient(135deg, hsl(29 87% 62%), hsl(29 87% 52%));
+    --gradient-card: linear-gradient(180deg, hsl(0 0% 100%), hsl(210 20% 98%));
+    
+    /* Shadows */
+    --shadow-sm: 0 1px 3px hsl(210 25% 15% / 0.08);
+    --shadow-md: 0 4px 12px hsl(210 25% 15% / 0.1);
+    --shadow-lg: 0 8px 24px hsl(210 25% 15% / 0.12);
+    --shadow-xl: 0 16px 48px hsl(210 25% 15% / 0.15);
+    --shadow-glow: 0 0 24px hsl(29 87% 62% / 0.3);
+    
+    /* Sidebar */
+    --sidebar-background: 210 20% 98%;
+    --sidebar-foreground: 210 25% 15%;
+    --sidebar-primary: 209 83% 30%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 210 20% 94%;
+    --sidebar-accent-foreground: 209 83% 30%;
+    --sidebar-border: 210 20% 90%;
+    --sidebar-ring: 209 83% 30%;
+  }
+
+  .dark {
+    --background: 210 25% 8%;
+    --foreground: 210 20% 95%;
+    
+    --card: 210 25% 12%;
+    --card-foreground: 210 20% 95%;
+    
+    --popover: 210 25% 12%;
+    --popover-foreground: 210 20% 95%;
+    
+    --primary: 209 70% 50%;
+    --primary-foreground: 0 0% 100%;
+    
+    --secondary: 210 25% 18%;
+    --secondary-foreground: 210 20% 95%;
+    
+    --muted: 210 25% 18%;
+    --muted-foreground: 210 15% 60%;
+    
+    --accent: 29 87% 62%;
+    --accent-foreground: 0 0% 100%;
+    
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --border: 210 25% 20%;
+    --input: 210 25% 20%;
+    --ring: 209 70% 50%;
+    
+    --sidebar-background: 210 25% 10%;
+    --sidebar-foreground: 210 20% 95%;
+    --sidebar-primary: 209 70% 50%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 210 25% 15%;
+    --sidebar-accent-foreground: 210 20% 95%;
+    --sidebar-border: 210 25% 18%;
+    --sidebar-ring: 209 70% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold tracking-tight;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent;
+  }
+  
+  .bg-hero-gradient {
+    background: var(--gradient-hero);
+  }
+  
+  .bg-cta-gradient {
+    background: var(--gradient-cta);
+  }
+  
+  .shadow-card {
+    box-shadow: var(--shadow-md);
+  }
+  
+  .shadow-card-hover {
+    box-shadow: var(--shadow-lg);
+  }
+  
+  .shadow-glow {
+    box-shadow: var(--shadow-glow);
+  }
+  
+  .animate-fade-up {
+    animation: fadeUp 0.6s ease-out forwards;
+  }
+  
+  .animate-fade-in {
+    animation: fadeIn 0.4s ease-out forwards;
+  }
+  
+  .animate-slide-in {
+    animation: slideIn 0.5s ease-out forwards;
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-muted;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-steel rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-steel-dark;
+}
+
+/* Print styles for invoice */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  body {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+}
