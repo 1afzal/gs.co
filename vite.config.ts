@@ -16,6 +16,12 @@ export default defineConfig(({ mode }) => ({
       usePolling: true, // Enable polling for better file detection
       interval: 1000,
     },
+    proxy: {
+      '/api': {
+        target: 'http://localhost:5000',
+        changeOrigin: true,
+      },
+    },
   },
   build: {
     outDir: 'dist',

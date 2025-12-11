@@ -4,12 +4,24 @@ import { Button } from '@/components/ui/button';
 import { Product, getProducts } from '@/data/products';
 import { getWhatsAppLink } from '@/data/companyInfo';
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ProductQuickView from '@/components/products/ProductQuickView';
 
 const FeaturedProducts = () => {
-  const products = getProducts().filter(p => p.featured).slice(0, 8);
+  const [products, setProducts] = useState<Product[]>([]);
   const [quickViewProduct, setQuickViewProduct] = useState<Product | null>(null);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const allProducts = await getProducts();
+        setProducts(allProducts.filter(p => p.featured).slice(0, 8));
+      } catch (error) {
+        console.error('Error fetching featured products:', error);
+      }
+    };
+    fetchProducts();
+  }, []);
 
   return (
     <section className="py-16 md:py-24">

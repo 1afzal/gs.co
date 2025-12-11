@@ -51,11 +51,23 @@ const currencies = [
 
 const InvoiceGenerator = () => {
   const location = useLocation();
-  const products = getProducts();
+  const [products, setProducts] = useState<Product[]>([]);
   const companyInfo = getCompanyInfo();
   const [searchQuery, setSearchQuery] = useState('');
   const [showProductSearch, setShowProductSearch] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const allProducts = await getProducts();
+        setProducts(allProducts);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      }
+    };
+    fetchProducts();
+  }, []);
 
   const generateInvoiceNumber = () => {
     const prefix = 'INV';

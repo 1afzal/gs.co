@@ -42,7 +42,16 @@ const AdminPage = () => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      setProducts(getProducts());
+      const fetchProducts = async () => {
+        try {
+          const allProducts = await getProducts();
+          setProducts(allProducts);
+        } catch (error) {
+          console.error('Error fetching products:', error);
+          toast.error('Failed to load products');
+        }
+      };
+      fetchProducts();
     }
   }, [isAuthenticated]);
 
@@ -58,48 +67,66 @@ const AdminPage = () => {
   }
 
   // Product Management
-  const handleAddProduct = () => {
+  const handleAddProduct = async () => {
     if (!newProduct.name || !newProduct.sku || !newProduct.category) {
       toast.error('Please fill in required fields (Name, SKU, Category)');
       return;
     }
-    const product = addProduct({
-      ...newProduct,
-      specs: specsInput.split('\n').filter(s => s.trim()),
-    });
-    setProducts(getProducts());
-    setIsAddingProduct(false);
-    setNewProduct({
-      name: '',
-      category: '',
-      sku: '',
-      price: 0,
-      description: '',
-      specs: [],
-      image: '',
-      featured: false,
-    });
-    setSpecsInput('');
-    toast.success('Product added successfully');
+    try {
+      await addProduct({
+        ...newProduct,
+        specs: specsInput.split('\n').filter(s => s.trim()),
+      });
+      const allProducts = await getProducts();
+      setProducts(allProducts);
+      setIsAddingProduct(false);
+      setNewProduct({
+        name: '',
+        category: '',
+        sku: '',
+        price: 0,
+        description: '',
+        specs: [],
+        image: '',
+        featured: false,
+      });
+      setSpecsInput('');
+      toast.success('Product added successfully');
+    } catch (error) {
+      console.error('Error adding product:', error);
+      toast.error('Failed to add product');
+    }
   };
 
-  const handleUpdateProduct = () => {
+  const handleUpdateProduct = async () => {
     if (!editingProduct) return;
-    updateProduct(editingProduct.id, {
-      ...editingProduct,
-      specs: specsInput.split('\n').filter(s => s.trim()),
-    });
-    setProducts(getProducts());
-    setEditingProduct(null);
-    setSpecsInput('');
-    toast.success('Product updated successfully');
+    try {
+      await updateProduct(editingProduct.id, {
+        ...editingProduct,
+        specs: specsInput.split('\n').filter(s => s.trim()),
+      });
+      const allProducts = await getProducts();
+      setProducts(allProducts);
+      setEditingProduct(null);
+      setSpecsInput('');
+      toast.success('Product updated successfully');
+    } catch (error) {
+      console.error('Error updating product:', error);
+      toast.error('Failed to update product');
+    }
   };
 
-  const handleDeleteProduct = (id: string) => {
+  const handleDeleteProduct = async (id: string) => {
     if (confirm('Are you sure you want to delete this product?')) {
-      deleteProduct(id);
-      setProducts(getProducts());
-      toast.success('Product deleted successfully');
+      try {
+        await deleteProduct(id);
+        const allProducts = await getProducts();
+        setProducts(allProducts);
+        toast.success('Product deleted successfully');
+      } catch (error) {
+        console.error('Error deleting product:', error);
+        toast.error('Failed to delete product');
+      }
     }
   };
 
@@ -120,18 +147,20 @@ const AdminPage = () => {
     if (!file) return;
 
     const reader = new FileReader();
-    reader.onload = (event) => {
+    reader.onload = async (event) => {
       try {
         const imported = JSON.parse(event.target?.result as string);
         if (Array.isArray(imported)) {
-          saveProducts(imported);
-          setProducts(getProducts());
+          await saveProducts(imported);
+          const allProducts = await getProducts();
+          setProducts(allProducts);
           toast.success(`Imported ${imported.length} products`);
         } else {
           toast.error('Invalid file format');
         }
-      } catch {
-        toast.error('Failed to parse file');
+      } catch (error) {
+        console.error('Error importing products:', error);
+        toast.error('Failed to import products');
       }
     };
     reader.readAsText(file);
