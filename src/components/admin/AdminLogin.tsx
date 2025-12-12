@@ -4,7 +4,6 @@ import { Lock, Eye, EyeOff, ShieldAlert } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { ADMIN_PASSWORD } from '@/data/companyInfo';
 import { toast } from 'sonner';
 
 interface AdminLoginProps {
@@ -17,7 +16,7 @@ const AdminLogin = ({ onLogin }: AdminLoginProps) => {
   const [error, setError] = useState('');
   const [attempts, setAttempts] = useState(0);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
 
@@ -26,14 +25,29 @@ const AdminLogin = ({ onLogin }: AdminLoginProps) => {
       return;
     }
 
-    if (password === ADMIN_PASSWORD) {
-      sessionStorage.setItem('adminAuth', 'true');
-      toast.success('Welcome to Admin Panel');
-      onLogin();
-    } else {
-      setAttempts(prev => prev + 1);
-      setError('Incorrect password. Please try again.');
-      setPassword('');
+    try {
+      const API_BASE = import.meta.env.VITE_API_URL || '/api';
+      const res = await fetch(`${API_BASE}/admin/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password }),
+      });
+
+      if (res.ok) {
+        sessionStorage.setItem('adminAuth', 'true');
+        toast.success('Welcome to Admin Panel');
+        onLogin();
+      } else if (res.status === 401) {
+        setAttempts(prev => prev + 1);
+        setError('Incorrect password. Please try again.');
+        setPassword('');
+      } else {
+        const body = await res.json().catch(() => ({}));
+        setError(body.error || 'Login failed');
+      }
+    } catch (err: any) {
+      console.error('Login error', err);
+      setError('Login failed, try again later');
     }
   };
 
