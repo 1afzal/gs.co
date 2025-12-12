@@ -4,12 +4,5 @@
   "devCommand": "npm run dev",
   "installCommand": "npm install",
   "framework": "vite",
-  "rewrites": [],
-  "functions": {
-    "api/*.js": {
-      "memory": 128,
-      "maxDuration": 10,
-      "runtime": "nodejs18.x"
-    }
-  }
+  "rewrites": []
 }
