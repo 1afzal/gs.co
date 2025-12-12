@@ -6,6 +6,8 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
 
+import { API_BASE_URL } from '@/lib/api';
+
 interface AdminLoginProps {
   onLogin: () => void;
 }
@@ -26,8 +28,7 @@ const AdminLogin = ({ onLogin }: AdminLoginProps) => {
     }
 
     try {
-      const API_BASE = import.meta.env.VITE_API_URL || 'https://gs-co-backend.onrender.com/api';
-      const res = await fetch(`${API_BASE}/admin/login`, {
+      const res = await fetch(`${API_BASE_URL}/admin/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ password }),

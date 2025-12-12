@@ -18,7 +18,7 @@ export default defineConfig(({ mode }) => ({
     },
     proxy: {
       '/api': {
-        target: 'http://localhost:5000',
+        target: 'https://gs-co-backend.onrender.com',
         changeOrigin: true,
       },
     },

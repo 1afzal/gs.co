@@ -1,12 +1,15 @@
-export const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://gs-co-backend.onrender.com/api';
-// Log the resolved API base at runtime so we can verify deployed frontend uses correct URL
-try {
-  // Only run in browser/go where console exists
-  // eslint-disable-next-line no-console
-  console.info('Using API base:', API_BASE_URL);
-} catch (e) {
-  // ignore in non-browser environments
-}
+export const API_BASE_URL = (() => {
+  const raw = import.meta.env.VITE_API_URL || 'https://gs-co-backend.onrender.com';
+  let base = raw.replace(/\/+$/, '');
+  if (!base.endsWith('/api')) base = `${base}/api`;
+  try {
+    // eslint-disable-next-line no-console
+    console.info('Using API base:', base);
+  } catch (e) {
+    // ignore in non-browser environments
+  }
+  return base;
+})();
 
 export const api = {
   async get<T>(endpoint: string): Promise<T> {
