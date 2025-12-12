@@ -26,7 +26,7 @@ const AdminLogin = ({ onLogin }: AdminLoginProps) => {
     }
 
     try {
-      const API_BASE = import.meta.env.VITE_API_URL || '/api';
+      const API_BASE = import.meta.env.VITE_API_URL || 'https://gs-co-backend.onrender.com/api';
       const res = await fetch(`${API_BASE}/admin/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

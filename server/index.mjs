@@ -5,8 +5,8 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
-import productRoutes from '../server/routes/products.js';
-import adminRoutes from '../server/routes/admin.js';
+import productRoutes from './routes/products.js';
+import adminRoutes from './routes/admin.js';
 
 dotenv.config();
 
@@ -76,23 +76,30 @@ function setupGracefulShutdown(server) {
   process.on('SIGINT', () => shutdown('SIGINT'));
 }
 
-// Start server when this file is run directly (Render runs your start command)
-if (import.meta.url === `file://${process.argv[1]}`) {
+// Start server helper: connect to DB and listen
+export async function startServer() {
   const port = process.env.PORT || 6969;
 
-  // Try to connect to DB but don't block start forever
-  connectToDatabase()
-    .then(() => console.log('✅ Database connected at startup (if reachable)'))
-    .catch((err) => {
-      console.warn('⚠️ Could not connect to MongoDB at startup — continuing without DB.');
-      console.warn(err.message || err);
-    })
-    .finally(() => {
-      const server = app.listen(port, () => {
-        console.log(`🚀 Express API listening on port ${port}`);
-      });
-      setupGracefulShutdown(server);
+  try {
+    await connectToDatabase();
+    console.log('✅ Database connected at startup (if reachable)');
+  } catch (err) {
+    console.warn('⚠️ Could not connect to MongoDB at startup — continuing without DB.');
+    console.warn(err.message || err);
+  } finally {
+    const server = app.listen(port, () => {
+      console.log(`🚀 Express API listening on port ${port}`);
     });
+    setupGracefulShutdown(server);
+  }
+}
+
+// If run directly (node index.mjs), start the server automatically
+if (import.meta.url === `file://${process.argv[1]}`) {
+  startServer().catch((err) => {
+    console.error('Failed to start server:', err);
+    process.exit(1);
+  });
 }
 
 export default app;

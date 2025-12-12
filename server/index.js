@@ -3,9 +3,12 @@
 
 (async () => {
   try {
-    await import('./index.mjs');
+    const mod = await import('./index.mjs');
+    if (mod && typeof mod.startServer === 'function') {
+      await mod.startServer();
+    }
   } catch (err) {
-    console.error('Failed to load ESM entry ./index.mjs', err);
+    console.error('Failed to load or start ESM entry ./index.mjs', err);
     process.exit(1);
   }
 })();
