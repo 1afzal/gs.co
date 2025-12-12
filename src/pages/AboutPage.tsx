@@ -76,7 +76,7 @@ const AboutPage = () => {
                 </p>
                 <p>
                   With years of industry experience, we've built strong relationships with top manufacturers, 
-                  enabling us to offer competitive prices without compromising on quality. Our extensive 
+                  enabling us to offer great value without compromising on quality. Our extensive 
                   inventory and efficient logistics ensure you get what you need, when you need it.
                 </p>
               </div>

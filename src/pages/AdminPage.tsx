@@ -294,15 +294,7 @@ const AdminPage = () => {
                               </Select>
                             </div>
                             <div>
-                              <Label htmlFor="new-price">Price</Label>
-                              <Input
-                                id="new-price"
-                                type="number"
-                                step="0.01"
-                                value={newProduct.price}
-                                onChange={(e) => setNewProduct(p => ({ ...p, price: parseFloat(e.target.value) || 0 }))}
-                                className="mt-1"
-                              />
+                              {/* price input removed per request */}
                             </div>
                           </div>
                           <div>
@@ -369,7 +361,6 @@ const AdminPage = () => {
                         <th className="text-left py-3 font-medium text-muted-foreground">Name</th>
                         <th className="text-left py-3 font-medium text-muted-foreground">SKU</th>
                         <th className="text-left py-3 font-medium text-muted-foreground">Category</th>
-                        <th className="text-right py-3 font-medium text-muted-foreground">Price</th>
                         <th className="text-center py-3 font-medium text-muted-foreground">Featured</th>
                         <th className="text-right py-3 font-medium text-muted-foreground">Actions</th>
                       </tr>
@@ -389,7 +380,6 @@ const AdminPage = () => {
                           <td className="py-3 text-muted-foreground">
                             {categories.find(c => c.id === product.category)?.name || product.category}
                           </td>
-                          <td className="py-3 text-right text-foreground">{product.price.toFixed(2)} SAR</td>
                           <td className="py-3 text-center">
                             {product.featured ? (
                               <span className="text-accent">★</span>
@@ -478,15 +468,7 @@ const AdminPage = () => {
                           </Select>
                         </div>
                         <div>
-                          <Label htmlFor="edit-price">Price</Label>
-                          <Input
-                            id="edit-price"
-                            type="number"
-                            step="0.01"
-                            value={editingProduct.price}
-                            onChange={(e) => setEditingProduct(p => p ? { ...p, price: parseFloat(e.target.value) || 0 } : null)}
-                            className="mt-1"
-                          />
+                          {/* price input removed per request */}
                         </div>
                       </div>
                       <div>

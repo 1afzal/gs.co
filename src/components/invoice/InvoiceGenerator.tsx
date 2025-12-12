@@ -119,7 +119,7 @@ const InvoiceGenerator = () => {
       name: product.name,
       description: `SKU: ${product.sku}`,
       quantity: 1,
-      unitPrice: product.price,
+      unitPrice: 0,
       discount: 0,
     };
     setInvoice(prev => ({ ...prev, items: [...prev.items, newItem] }));
@@ -547,9 +547,7 @@ const InvoiceGenerator = () => {
                                 <p className="text-sm font-medium text-foreground">{product.name}</p>
                                 <p className="text-xs text-muted-foreground">{product.sku}</p>
                               </div>
-                              <span className="text-sm font-medium text-primary">
-                                {getCurrencySymbol()}{product.price.toFixed(2)}
-                              </span>
+                              {/* price hidden per request */}
                             </button>
                           ))}
                           {filteredProducts.length === 0 && (

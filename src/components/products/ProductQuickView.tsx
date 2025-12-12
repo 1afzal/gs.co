@@ -60,15 +60,6 @@ const ProductQuickView = ({ product, isOpen, onClose }: ProductQuickViewProps) =
             </div>
 
             <div className="mt-auto pt-4 border-t border-border">
-              <div className="flex items-center justify-between mb-4">
-                <span className="text-2xl font-bold text-primary">
-                  {product.price.toFixed(2)} SAR
-                </span>
-                <span className="text-sm text-muted-foreground">
-                  Per unit
-                </span>
-              </div>
-
               <div className="flex flex-col gap-2">
                 <Button variant="whatsapp" asChild>
                   <a

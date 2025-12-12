@@ -83,9 +83,7 @@ const FeaturedProducts = () => {
                   {product.description}
                 </p>
                 <div className="flex items-center justify-between">
-                  <span className="text-lg font-bold text-primary">
-                    {product.price.toFixed(2)} SAR
-                  </span>
+                  {/* price removed per request */}
                   <div className="flex gap-1">
                     <Button
                       variant="ghost"

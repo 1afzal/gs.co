@@ -33,9 +33,7 @@ const ProductCard = ({ product, viewMode, onQuickView }: ProductCardProps) => {
                   {product.name}
                 </h3>
               </div>
-              <span className="text-xl font-bold text-primary whitespace-nowrap">
-                {product.price.toFixed(2)} SAR
-              </span>
+              {/* price removed per request */}
             </div>
             <p className="text-sm text-muted-foreground mt-2 line-clamp-2">
               {product.description}
@@ -102,9 +100,7 @@ const ProductCard = ({ product, viewMode, onQuickView }: ProductCardProps) => {
           {product.description}
         </p>
         <div className="flex items-center justify-between">
-          <span className="text-lg font-bold text-primary">
-            {product.price.toFixed(2)} SAR
-          </span>
+          {/* price removed per request */}
           <div className="flex gap-1">
             <Button variant="ghost" size="sm" asChild>
               <a
