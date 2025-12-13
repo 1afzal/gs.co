@@ -4,7 +4,6 @@ export const API_BASE_URL = (() => {
   if (!base.endsWith('/api')) base = `${base}/api`;
   try {
     // eslint-disable-next-line no-console
-    console.info('Using API base:', base);
   } catch (e) {
     // ignore in non-browser environments
   }
