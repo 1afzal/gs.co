@@ -30,7 +30,7 @@ const defaultCompanyInfo: CompanyInfo = {
   phone: '+966597566381',
   email: 'info@grayship.co',
   whatsappNumber: '+966597566381',
-  website: 'www.gs.co',
+  website: 'www.grayship.co',
   taxId: 'TAX-123456789',
   bankDetails: {
     bankName: 'xxxxx',

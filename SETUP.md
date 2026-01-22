@@ -28,7 +28,7 @@ Create a `.env` file in the root directory:
 ```env
 MONGODB_URI=your_mongodb_connection_string
 PORT=5000
-VITE_API_URL=http://localhost:6969/api
+VITE_API_URL=https://gs-co-backend.onrender.com/api
 ```
 
 **For MongoDB Atlas:**

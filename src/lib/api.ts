@@ -1,5 +1,5 @@
 export const API_BASE_URL = (() => {
-  const raw = import.meta.env.VITE_API_URL || 'https://gs-co-backend.onrender.com';
+  const raw = import.meta.env.VITE_API_URL || 'https://gs-co-backend.onrender.com/api';
   let base = raw.replace(/\/+$/, '');
   if (!base.endsWith('/api')) base = `${base}/api`;
   try {
