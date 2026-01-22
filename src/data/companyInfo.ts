@@ -28,7 +28,7 @@ const defaultCompanyInfo: CompanyInfo = {
   city: 'Al Khafji',
   country: 'Saudi',
   phone: '+966597566381',
-  email: 'info@gs.co',
+  email: 'info@grayship.co',
   whatsappNumber: '+966597566381',
   website: 'www.gs.co',
   taxId: 'TAX-123456789',
